@@ -1,0 +1,17 @@
+# Environment variables (contains secrets)
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Session files
+.gmail_agent_history
+
+.claude/
+.ruff_cache/
+
+nohup.out
+ttyd.log
+ttyd
