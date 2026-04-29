@@ -7,6 +7,7 @@ from google.genai import types
 
 import os
 import config
+import asyncio
 from ui import (
     cprint,
     _rule,
@@ -135,7 +136,7 @@ If no tool fits the request, call suggest_new_tool and tell the user what capabi
 
 def init_chat() -> None:
     """Create a fresh chat session with the system prompt and tool declarations."""
-    config._chat = config.ensure_client().chats.create(
+    config._chat = config.ensure_client().aio.chats.create(
         model=config.MODEL,
         config=types.GenerateContentConfig(
             system_instruction=_build_system_prompt(),
@@ -152,10 +153,11 @@ def init_chat() -> None:
     )
 
 
-def run_agent(user_message: str) -> str:
+async def run_agent(user_message: str) -> str:
     """
     Send a message and run the ReAct loop:
     model responds → tool calls executed → results fed back → repeat until done.
+    Async so that asyncio.CancelledError propagates on client disconnect.
     """
     config._current_user_message = user_message
     t_total = time.perf_counter()
@@ -174,7 +176,7 @@ def run_agent(user_message: str) -> str:
         )
 
     t = time.perf_counter()
-    response = config._chat.send_message(user_message)
+    response = await config._chat.send_message(user_message)
     llm_total += time.perf_counter() - t
     llm_count += 1
 
@@ -223,7 +225,7 @@ def run_agent(user_message: str) -> str:
             )
 
         t = time.perf_counter()
-        response = config._chat.send_message(function_responses)
+        response = await config._chat.send_message(function_responses)
         llm_total += time.perf_counter() - t
         llm_count += 1
 
@@ -321,7 +323,7 @@ def main():
 
         print()
         start_ticker(time.perf_counter())
-        response_text = run_agent(user_input)
+        response_text = asyncio.run(run_agent(user_input))
         stop_ticker()
         _render_agent_response(response_text)
 

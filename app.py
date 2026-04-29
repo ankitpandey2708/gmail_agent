@@ -575,7 +575,7 @@ def save_credentials(email, app_password, gemini_key, model):
         )
 
 
-def chat(message, history):
+async def chat(message, history):
     global _initialized
     history = history or []
 
@@ -595,7 +595,7 @@ def chat(message, history):
         history.append({"role": "user", "content": message})
         yield history, "", gr.update(visible=True)
 
-        response = run_agent(message)
+        response = await run_agent(message)
 
         history.append({"role": "assistant", "content": response})
         yield history, "", gr.update(visible=False)
