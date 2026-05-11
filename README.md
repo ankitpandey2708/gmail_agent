@@ -181,3 +181,5 @@ ruff format .
 ruff check .
 ruff check --fix .
 vulture .
+
+## https://www.playtime.sh/blog/inbox-pilot

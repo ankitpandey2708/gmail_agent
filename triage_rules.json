@@ -1,0 +1,47 @@
+{
+  "archiveSenderPatterns": [
+    "noreply",
+    "no-reply",
+    "donotreply",
+    "do-not-reply",
+    "notifications@",
+    "notify@",
+    "digest@",
+    "newsletter@",
+    "mailer@",
+    "bounce@",
+    "calendar-notification@google.com",
+    "invitations-noreply@linkedin.com",
+    "comments-.*@email.figma.com",
+    "notify@mail.notion.so"
+  ],
+  "archiveSubjectPatterns": [
+    "has (accepted|declined) your invitation",
+    "invited you to",
+    "(weekly|monthly|daily) (digest|report|roundup)",
+    "newsletter",
+    "your (receipt|order|payment|subscription)",
+    "order (confirmation|shipped|delivered|processing)",
+    "payment (confirmed|processed|received)",
+    "(new|added) comment",
+    "merged|closed|opened|pushed to"
+  ],
+  "archiveDomainPatterns": [
+    "linkedin.com",
+    "twitter.com",
+    "facebook.com",
+    "instagram.com"
+  ],
+  "spamSubjectPatterns": [
+    "exploring collaboration",
+    "hire top tech talent",
+    "gentle follow-up",
+    "strategic partnership",
+    "quick question",
+    "touching base",
+    "circling back",
+    "hope this finds you well",
+    "mutual benefit",
+    "synergies"
+  ]
+}
